@@ -1,8 +1,8 @@
-# Contributing to JSON Data Import
+# Contributing to Json2GraphQL
 
 ## Issues
 
-Please open an issue related to your work. Add the label `c/json2graphql`.
+Please open an issue related to your work.
 
 ## Local developmet
 

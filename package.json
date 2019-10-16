@@ -1,13 +1,13 @@
 {
   "name": "json2graphql",
   "description": "A CLI tool to import JSON data in Hasura GraphQL Engine",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "author": "Hasura",
   "bin": {
     "json2graphql": "./bin/run",
     "j2g": "./bin/run"
   },
-  "bugs": "https://github.com/hasura/graphql-engine/issues?q=is%3Aissue+is%3Aopen+label%3Ac%2Fjson2graphql",
+  "bugs": "https://github.com/hasura/json2graphql/issues",
   "dependencies": {
     "@oclif/command": "1.4.35",
     "@oclif/config": "1.6.33",
@@ -29,20 +29,21 @@
     "/bin",
     "/src"
   ],
-  "homepage": "https://github.com/wawhal/graphql-engine/tree/master/community/tools/json2graphql",
+  "homepage": "https://github.com/hasura/json2graphql",
   "keywords": [
     "oclif",
     "cli",
     "graphql",
     "grapql-engine",
-    "json"
+    "json",
+    "mock"
   ],
   "license": "MIT",
   "main": "src/command.js",
   "oclif": {
     "bin": "json2graphql"
   },
-  "repository": "hasura/graphql-engine",
+  "repository": "hasura/json2graphql",
   "scripts": {
     "eslint": "eslint .",
     "eslintfix": "eslint . --fix",
