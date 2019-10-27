@@ -62,8 +62,6 @@ const loadTests = () => {
 };
 
 const verifyDataImport = () => {
-  // let resp = null;
-
   const tests = loadTests();
   let queue = [];
 
@@ -92,27 +90,5 @@ const verifyDataImport = () => {
     );
   }
   return Promise.all(queue);
-
-  // return query({
-  //   query: complexQuery,
-  //   endpoint: `${process.env.TEST_HGE_URL}/v1/graphql`,
-  //   headers: {'x-hasura-admin-secret': process.env.TEST_X_HASURA_ADMIN_SECRET},
-  // }).then(response => {
-  //   resp = response;
-  //   if (response.data.j2g_test_favoriteRoutes[0]
-  //   .j2g_test_routesByJ2g_test_routesId
-  //   .j2g_test_leaguesByJ2g_test_leaguesId
-  //   .j2g_test_flightssByJ2g_test_leaguesId[0]
-  //   .j2g_test_flightCommentssByJ2g_test_flightsId[0]
-  //   .j2g_test_usersByJ2g_test_usersId.email === 'osxcode@gmail.com') {
-  //     console.log('✔︎ Test passed');
-  //   } else {
-  //     console.log('✖ Test failed. Unexpected response.');
-  //     console.log(response.data);
-  //   }
-  // }).catch(() => {
-  //   console.log('✖ Test failed. Unexpected response.');
-  //   console.log(JSON.stringify(resp, null, 2));
-  // });
 };
 verifyDataImport().then(() => deleteTables()).catch(() => deleteTables());
