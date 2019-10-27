@@ -50,7 +50,6 @@
     "eslint": "eslint .",
     "eslintfix": "eslint . --fix",
     "posttest": "npm run eslint",
-    "start": "cd test && ./start.sh",
     "test": "cd test && ./test.sh"
   },
   "pre-commit": [
