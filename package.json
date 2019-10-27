@@ -14,6 +14,7 @@
     "@oclif/errors": "1.1.2",
     "@oclif/plugin-help": "2.0.5",
     "cli-ux": "4.7.3",
+    "glob": "^7.1.5",
     "graphqurl": "^0.3.3",
     "moment": "2.22.2",
     "node-fetch": "2.2.0"
@@ -48,6 +49,7 @@
     "eslint": "eslint .",
     "eslintfix": "eslint . --fix",
     "posttest": "npm run eslint",
+    "start": "cd test && ./start.sh",
     "test": "cd test && ./test.sh"
   },
   "pre-commit": [
