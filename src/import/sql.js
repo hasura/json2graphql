@@ -45,7 +45,7 @@ const generateCreateTableSql = metadata => {
       }
       columnSql += (table.columns.length === i + 1) ? ' ) ' : ', ';
     });
-    const createTableSql = `create table public."${table.name}" ${columnSql};`;
+    let createTableSql = `create table public."${table.name}" ${columnSql};`;
     sqlArray.push(createTableSql);
   });
   return sqlArray;

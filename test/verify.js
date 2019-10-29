@@ -31,6 +31,7 @@ const testTables = [
   'j2g_test_uuids',
   'j2g_test_tags',
   'j2g_test_user_tags',
+  'j2g_test_serialPrimaryKeys',
 ];
 
 const deleteTables = () => {

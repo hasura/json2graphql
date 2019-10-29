@@ -119,6 +119,11 @@ const db = {
   j2g_test_user_tags: [
     {j2g_test_users_id: 1, j2g_test_tags_id: 1},
     {j2g_test_users_id: 1, j2g_test_tags_id: 2}
+  ],
+  j2g_test_serialPrimaryKeys: [
+    {id: 1, name: 'a'},
+    {id: 3, name: 'b'},
+    {id: 6, name: 'c'}
   ]
 };
 
