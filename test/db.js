@@ -109,6 +109,22 @@ const db = {
   j2g_test_favoriteRoutes: [
     {id: 1, j2g_test_users_id: 1, j2g_test_routes_id: 1, datetime: '2018-07-01 15:48:45'},
   ],
+  j2g_test_uuids: [
+    {id: 1, version1: 'b87b8d7c-f9f0-11e9-8f0b-362b9e155667', version4: 'ca1325f8-612f-4672-841f-a8d84434e6a6'}
+  ],
+  j2g_test_tags: [
+    {id: 1, name: 'tag a'},
+    {id: 2, name: 'tag b'}
+  ],
+  j2g_test_user_tags: [
+    {j2g_test_users_id: 1, j2g_test_tags_id: 1},
+    {j2g_test_users_id: 1, j2g_test_tags_id: 2}
+  ],
+  j2g_test_serialPrimaryKeys: [
+    {id: 1, name: 'a'},
+    {id: 3, name: 'b'},
+    {id: 6, name: 'c'}
+  ]
 };
 
 module.exports = db;

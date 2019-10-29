@@ -1,28 +1,7 @@
 const {query} = require('graphqurl');
 const fetch = require('node-fetch');
-
-const complexQuery = `
-query {
-  j2g_test_favoriteRoutes {
-    j2g_test_routesByJ2g_test_routesId {
-      j2g_test_leaguesByJ2g_test_leaguesId {
-        j2g_test_flightssByJ2g_test_leaguesId (
-          order_by: {
-            id:asc
-          }
-        ){
-          j2g_test_flightCommentssByJ2g_test_flightsId(order_by: {j2g_test_users_id:asc}) {
-            j2g_test_users_id
-            j2g_test_usersByJ2g_test_usersId {
-              email
-            }
-          }
-        }
-      }
-    }
-  }
-}
-`;
+const glob = require('glob');
+const path = require('path');
 
 const testTables = [
   'j2g_test_favoriteFlights',
@@ -49,6 +28,10 @@ const testTables = [
   'j2g_test_waypointSuggestions',
   'j2g_test_waypoints',
   'j2g_test_wings',
+  'j2g_test_uuids',
+  'j2g_test_tags',
+  'j2g_test_user_tags',
+  'j2g_test_serialPrimaryKeys',
 ];
 
 const deleteTables = () => {
@@ -74,28 +57,42 @@ const deleteTables = () => {
   }).catch(() => console.log('Failed deleting test tables'));
 };
 
-const verifyDataImport = () => {
-  let resp = null;
-  return query({
-    query: complexQuery,
-    endpoint: `${process.env.TEST_HGE_URL}/v1/graphql`,
-    headers: {'x-hasura-admin-secret': process.env.TEST_X_HASURA_ADMIN_SECRET},
-  }).then(response => {
-    resp = response;
-    if (response.data.j2g_test_favoriteRoutes[0]
-    .j2g_test_routesByJ2g_test_routesId
-    .j2g_test_leaguesByJ2g_test_leaguesId
-    .j2g_test_flightssByJ2g_test_leaguesId[0]
-    .j2g_test_flightCommentssByJ2g_test_flightsId[0]
-    .j2g_test_usersByJ2g_test_usersId.email === 'osxcode@gmail.com') {
-      console.log('✔︎ Test passed');
-    } else {
-      console.log('✖ Test failed. Unexpected response.');
-      console.log(response.data);
-    }
-  }).catch(() => {
-    console.log('✖ Test failed. Unexpected response.');
-    console.log(JSON.stringify(resp, null, 2));
+const loadTests = () => {
+  let tests = [];
+  glob.sync('./tests/**/*.test.js').forEach(function (file) {
+    tests.push(require(path.resolve(file)));
   });
+  return tests;
+};
+
+const verifyDataImport = () => {
+  const tests = loadTests();
+  let queue = [];
+
+  for (const test of tests) {
+    queue.push(
+      new Promise((resolve, reject) => {
+        return query({
+          query: test.query,
+          endpoint: `${process.env.TEST_HGE_URL}/v1/graphql`,
+          headers: {'x-hasura-admin-secret': process.env.TEST_X_HASURA_ADMIN_SECRET},
+        }).then(response => {
+          const testResult = test.run(response);
+          if (testResult === true) {
+            console.log(`✔︎ ${test.name} passed`);
+            resolve();
+          } else {
+            // eslint-disable-next-line prefer-promise-reject-errors
+            reject(`✖ ${test.name} failed. ${testResult}`);
+          }
+        }).catch(error => {
+          console.log(error);
+        });
+      }).catch(error => {
+        console.log(error);
+      })
+    );
+  }
+  return Promise.all(queue);
 };
 verifyDataImport().then(() => deleteTables()).catch(() => deleteTables());
