@@ -37,6 +37,9 @@ const generateCreateTableSql = metadata => {
       } else {
         columnSql += `"${column.name}" ${column.type}`;
       }
+      if (column.type === 'uuid') {
+        columnSql += ' default gen_random_uuid()';
+      }
       columnSql += (table.columns.length === i + 1) ? ' ) ' : ', ';
     });
     const createTableSql = `create table public."${table.name}" ${columnSql};`;

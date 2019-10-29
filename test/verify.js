@@ -28,6 +28,7 @@ const testTables = [
   'j2g_test_waypointSuggestions',
   'j2g_test_waypoints',
   'j2g_test_wings',
+  'j2g_test_uuids',
 ];
 
 const deleteTables = () => {
