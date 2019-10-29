@@ -89,9 +89,11 @@ const sanitizeData = db => {
 const generate = db => {
   const metaData = [];
   Object.keys(db).forEach(rootField => {
+    const hasPK = hasPrimaryKey(db[rootField], rootField);
     const tableMetadata = {};
-    if (!hasPrimaryKey(db[rootField], rootField)) {
-      throwError(`message: a unique column with name "id" must present in table "${rootField}"`);
+    tableMetadata.primaryKeys = [];
+    if (hasPK) {
+      tableMetadata.primaryKeys = ['id'];
     }
     tableMetadata.name = rootField;
     tableMetadata.columns = getColumnData(db[rootField], db);
@@ -99,6 +101,9 @@ const generate = db => {
     tableMetadata.columns.forEach(column => {
       if (column.isForeign) {
         tableMetadata.dependencies.push(column.name.substring(0, column.name.length - 3));
+        if (!hasPK) {
+          tableMetadata.primaryKeys.push(column.name);
+        }
       }
     });
     metaData.push(tableMetadata);

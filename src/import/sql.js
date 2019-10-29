@@ -33,12 +33,15 @@ const generateCreateTableSql = metadata => {
     let columnSql = '(';
     table.columns.forEach((column, i) => {
       if (column.name === 'id') {
-        columnSql += `"id" ${column.type} not null primary key`;
+        columnSql += `"id" ${column.type} not null`;
       } else {
         columnSql += `"${column.name}" ${column.type}`;
       }
       if (column.type === 'uuid') {
         columnSql += ' default gen_random_uuid()';
+      }
+      if (table.columns.length === i + 1) {
+        columnSql += `, primary key("${table.primaryKeys.join('", "')}")`;
       }
       columnSql += (table.columns.length === i + 1) ? ' ) ' : ', ';
     });

@@ -29,6 +29,8 @@ const testTables = [
   'j2g_test_waypoints',
   'j2g_test_wings',
   'j2g_test_uuids',
+  'j2g_test_tags',
+  'j2g_test_user_tags',
 ];
 
 const deleteTables = () => {
