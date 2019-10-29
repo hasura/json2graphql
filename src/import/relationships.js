@@ -2,12 +2,14 @@ const fetch = require('node-fetch');
 const throwError = require('./error');
 
 const getObjRelationshipName = dep => {
-  const relName = `${dep}By${dep[0].toUpperCase()}`;
-  return dep.length === 1 ? relName + 'Id' : relName + dep.substring(1, dep.length) + 'Id';
+  return dep;
 };
 
 const getArrayRelationshipName = (table, parent) => {
-  const relName = `${table}sBy${parent[0].toUpperCase()}`;
+  if (table.indexOf('__' > 0)) {
+    return table;
+  }
+  const relName = `${table}By${parent[0].toUpperCase()}`;
   return parent.length === 1 ? `${relName}Id` : `${relName}${parent.substring(1, parent.length)}Id`;
 };
 
