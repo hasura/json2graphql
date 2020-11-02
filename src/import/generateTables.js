@@ -21,10 +21,10 @@ const getDataType = (data, column) => {
 
 const isForeign = (name, db) => {
   const l = name.length;
-  if (l > 3) {
-    if (name.substring(l - 3, l) === '_id' &&
+  if (l > 2) {
+    if (name.substring(l - 2, l) === 'Id' &&
         Object.keys(db).find(tableName => {
-          return tableName === name.substring(0, l - 3);
+          return tableName === name.substring(0, l - 2);
         })) {
       return true;
     }
@@ -95,7 +95,7 @@ const generate = db => {
     tableMetadata.dependencies = [];
     tableMetadata.columns.forEach(column => {
       if (column.isForeign) {
-        tableMetadata.dependencies.push(column.name.substring(0, column.name.length - 3));
+        tableMetadata.dependencies.push(column.name.substring(0, column.name.length - 2));
       }
     });
     metaData.push(tableMetadata);

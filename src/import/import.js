@@ -14,19 +14,19 @@ const importData = async (jsonDb, url, headers, overwrite) => {
   cli.action.stop('Done!');
   cli.action.start('Checking database');
   createTables(tables, url, headers, overwrite, runSql, sql).then(() => {
-    cli.action.stop('Done!');
-    cli.action.start('Tracking tables');
-    trackTables(tables, url, headers).then(() => {
       cli.action.stop('Done!');
-      cli.action.start('Creating relationships');
-      createRelationships(tables, url, headers).then(() => {
-        cli.action.stop('Done!');
-        cli.action.start('Inserting data');
-        const insertOrder = getInsertOrder(tables);
-        insertData(insertOrder, db, tables, url, headers);
-      });
+      cli.action.start('Tracking tables');
+      trackTables(tables, url, headers).then(() => {
+          cli.action.stop('Done!');
+          cli.action.start('Creating relationships');
+          createRelationships(tables, url, headers).then(() => {
+              cli.action.stop('Done!');
+              cli.action.start('Inserting data');
+              const insertOrder = getInsertOrder(tables);
+              insertData(insertOrder, db, tables, url, headers);
+            });
+        });
     });
-  });
 };
 
 module.exports = importData;

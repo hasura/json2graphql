@@ -50,7 +50,7 @@ const generateConstraintsSql = metadata => {
   metadata.forEach(table => {
     table.columns.forEach(column => {
       if (column.isForeign) {
-        const fkSql = `add foreign key ("${column.name}") references public."${column.name.substring(0, column.name.length - 3)}" ("id");`;
+        const fkSql = `add foreign key ("${column.name}") references public."${column.name.substring(0, column.name.length - 2)}" ("id");`;
         sqlArray.push(`alter table public."${table.name}" ${fkSql}`);
       }
     });

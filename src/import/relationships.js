@@ -2,13 +2,13 @@ const fetch = require('node-fetch');
 const throwError = require('./error');
 
 const getObjRelationshipName = dep => {
-  const relName = `${dep}By${dep[0].toUpperCase()}`;
-  return dep.length === 1 ? relName + 'Id' : relName + dep.substring(1, dep.length) + 'Id';
+  const relName = `${dep}`;
+  return relName;
 };
 
 const getArrayRelationshipName = (table, parent) => {
-  const relName = `${table}sBy${parent[0].toUpperCase()}`;
-  return parent.length === 1 ? `${relName}Id` : `${relName}${parent.substring(1, parent.length)}Id`;
+  const relName = `${table}s`;
+  return relName;
 };
 
 const generateRelationships = tables => {
@@ -23,7 +23,7 @@ const generateRelationships = tables => {
             table: table.name,
             name: `${getObjRelationshipName(dep)}`,
             using: {
-              foreign_key_constraint_on: `${dep}_id`,
+              foreign_key_constraint_on: `${dep}Id`,
             },
           },
         });
@@ -35,7 +35,7 @@ const generateRelationships = tables => {
             using: {
               foreign_key_constraint_on: {
                 table: table.name,
-                column: `${dep}_id`,
+                column: `${dep}Id`,
               },
             },
           },
