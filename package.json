@@ -1,7 +1,7 @@
 {
   "name": "@webseven/json2graphql",
   "description": "A fork of CLI tool to import JSON data in Hasura GraphQL Engine",
-  "version": "0.1.5",
+  "version": "0.2.0-alpha.1",
   "author": "Web7",
   "bin": {
     "json2graphql2": "./bin/run",
