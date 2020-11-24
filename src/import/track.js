@@ -1,5 +1,6 @@
 const fetch = require('node-fetch');
 const throwError = require('./error');
+const {cli} = require('cli-ux');
 
 const trackTables = async (tables, url, headers) => {
   const bulkQueryArgs = [];
@@ -26,7 +27,7 @@ const trackTables = async (tables, url, headers) => {
   );
   if (resp.status !== 200) {
     const error = await resp.json();
-    throwError(JSON.stringify(error, null, 2));
+    cli.action.start(error.error);
   }
 };
 

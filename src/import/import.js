@@ -9,7 +9,7 @@ const {createTables} = require('./check');
 const importData = async (jsonDb, url, headers, overwrite) => {
   cli.action.start('Processing JSON data');
   const db = sanitizeData(jsonDb);
-  const tables = generate(db);
+  const tables = await generate(db, overwrite, url, headers);
   const sql = generateSql(tables);
   cli.action.stop('Done!');
   cli.action.start('Checking database');
