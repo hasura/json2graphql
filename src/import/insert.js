@@ -54,7 +54,7 @@ const transformData = (data, tables) => {
   return newData;
 };
 
-const insertData = async (insertOrder, sampleData, tables, url, headers) => {
+const insertData = async (insertOrder, sampleData, tables, url, headers, verbose) => {
   const transformedData = transformData(sampleData, tables);
   let mutationString = '';
   let objectString = '';
@@ -67,6 +67,9 @@ const insertData = async (insertOrder, sampleData, tables, url, headers) => {
   });
   const mutation = `mutation ( ${objectString} ) { ${mutationString} }`;
   cli.action.start('Inserting data');
+  if(verbose) {
+      console.debug('DATA: ', variables);
+  }
   try {
     const response = await query({
       query: mutation,

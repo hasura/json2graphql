@@ -13,7 +13,7 @@ class JSON2GraphQL extends Command {
       throw new CLIError('endpoint is required: \'json2graphql <url>\'');
     }
 
-    const {db, overwrite} = flags;
+    const {db, overwrite, truncate, verbose} = flags;
     const key = flags['access-key'];
     const secret = flags['admin-secret'];
 
@@ -37,7 +37,7 @@ class JSON2GraphQL extends Command {
       throw new CLIError(urlVerification.message);
     } else {
       cli.action.stop('Done!');
-      await importData(dbJson, safeUrl, headers, overwrite);
+      await importData(dbJson, safeUrl, headers, overwrite, truncate, verbose);
     }
   }
 
@@ -109,6 +109,17 @@ JSON2GraphQL.flags = {
     char: 'o',
     description: 'Overwrite tables if they exist',
   }),
+
+  truncate: flags.boolean({
+    char: 't',
+    description: 'Truncate tables before upload data',
+  }),
+
+  verbose: flags.boolean({
+    char: 'v',
+    description: 'Verbose output',
+  }),
+  
 };
 
 JSON2GraphQL.args = [
