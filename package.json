@@ -1,5 +1,5 @@
 {
-  "name": "@webseven/json2graphql",
+  "name": "json2graphql2",
   "description": "A fork of CLI tool to import JSON data in Hasura GraphQL Engine",
   "version": "0.3.0",
   "author": "Web7",
