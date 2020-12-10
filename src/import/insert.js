@@ -45,7 +45,7 @@ const transformData = (data, tables) => {
           newRow[column.name] = moment(row[column.name]).format();
         }
         if (column.type === 'jsonb' && row[column.name]) {
-          newRow[column.name] = JSON.stringify(row[column.name]);
+          newRow[column.name] = row[column.name];
         }
       });
       newData[table.name].push(newRow);
